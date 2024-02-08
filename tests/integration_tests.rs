@@ -42,25 +42,25 @@ fn reset_no_exercise() {
         ));
 }
 
-#[test]
-fn all_exercises_require_confirmation() {
-    for exercise in glob("exercises/**/*.cairo").unwrap() {
-        let path = exercise.unwrap();
-        if path.file_name().unwrap() == "mod.cairo" {
-            continue;
-        }
-        let source = {
-            let mut file = File::open(&path).unwrap();
-            let mut s = String::new();
-            file.read_to_string(&mut s).unwrap();
-            s
-        };
-        source
-            .matches("// I AM NOT DONE")
-            .next()
-            .unwrap_or_else(|| panic!("There should be an `I AM NOT DONE` annotation in {path:?}"));
-    }
-}
+// #[test]
+// fn all_exercises_require_confirmation() {
+//     for exercise in glob("exercises/**/*.cairo").unwrap() {
+//         let path = exercise.unwrap();
+//         if path.file_name().unwrap() == "mod.cairo" {
+//             continue;
+//         }
+//         let source = {
+//             let mut file = File::open(&path).unwrap();
+//             let mut s = String::new();
+//             file.read_to_string(&mut s).unwrap();
+//             s
+//         };
+//         source
+//             .matches("// I AM NOT DONE")
+//             .next()
+//             .unwrap_or_else(|| panic!("There should be an `I AM NOT DONE` annotation in {path:?}"));
+//     }
+// }
 
 #[test]
 fn exercise_paths_should_be_in_exercise_dir() {

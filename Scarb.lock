@@ -2,5 +2,5 @@
 version = 1
 
 [[package]]
-name = "starklings"
+name = "starkling"
 version = "0.1.0"
