@@ -1,9 +1,9 @@
 use assert_cmd::prelude::*;
-//use glob::glob;
+use glob::glob;
 use serial_test::serial;
 
-//use std::fs::File;
-//use std::io::Read;
+use std::fs::File;
+use std::io::Read;
 use std::process::Command;
 
 #[test]
@@ -61,6 +61,25 @@ fn reset_no_exercise() {
 //             .unwrap_or_else(|| panic!("There should be an `I AM NOT DONE` annotation in {path:?}"));
 //     }
 // }
+
+#[test]
+fn all_exercises_require_confirmation() {
+    for exercise in glob("exercises/**/*.cairo").unwrap() {
+        let path = exercise.unwrap();
+        if path.file_name().unwrap() == "mod.cairo" {
+            continue;
+        }
+        let source = {
+            let mut file = File::open(&path).unwrap();
+            let mut s = String::new();
+            file.read_to_string(&mut s).unwrap();
+            s
+        };
+        if source.contains("// I AM NOT DONE") {
+            panic!("There should not be an `I AM NOT DONE` annotation in {:?}", path);
+        }
+    }
+}
 
 #[test]
 fn exercise_paths_should_be_in_exercise_dir() {
