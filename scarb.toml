@@ -1,11 +1,6 @@
 [package]
-name = "starklings"
+name = "starkling"
 version = "0.1.0"
-
-# See more keys and their definitions at https://docs.swmansion.com/scarb/docs/reference/manifest
+edition = "2023_10"
 
 [dependencies]
-starknet = ">=2.2.0"
-
-[[target.starknet-contract]]
-
